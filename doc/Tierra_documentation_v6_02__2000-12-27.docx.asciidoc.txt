@@ -1,8 +1,17 @@
-1.  Tierra.doc 12-27-2000 documentation for the Tierra Simulator
-1.  Tierra Simulator V6.02: Copyright (c) 1991 - 2003 +
+= Tierra Documentation
+
+Written By:
+Tom Ray, Chenmei Xu, Agnes Charrel,
+Tsukasa Kimezawa, Tooru Yoshikawa, Marc
+Chaland, Tom Uffner
+
+
+Tierra.doc 12-27-2000 documentation for the Tierra Simulator
+
+Tierra Simulator V6.02: Copyright (c) 1991 - 2003 +
 Tom Ray & Virtual Life
-+
-Contents
+
+==  Contents
 
 * link:#License[_1) License Agreement_]
 * link:#Virtual[_2) Virtual Machine_]
@@ -417,67 +426,47 @@ The first steps in running Tierra are described briefly above. One must place th
 
 1.  [[Assemble]]6.2) The Assembler/Disassembler
 
-Arg(1) USER COMMANDS Arg(1)
+--------------------------------------------------
+Arg(1)                   USER COMMANDS                     Arg(1)
 
 NAME
-
-arg – gene bank archive utility
+     arg – gene bank archive utility
 
 SYNOPSIS
+     arg c|r[v] <archive> <source> [source...]
+     arg t[v] <archive>
+     arg x[v]p <tiss[-tiss][,tiss[-tiss]...]> <archive>
+        [genotype [genotype...]]
+     arg x[a[d[l][u[s]]]][v] <archive> [genotype [genotype...]]
 
-arg c|r[v] <archive> <source> [source...]
 
-arg t[v] <archive>
-
-arg x[v]p <tiss[-tiss][,tiss[-tiss]...]> <archive>
-
-[genotype [genotype...]]
-
-arg x[a[d[l][u[s]]]][v] <archive> [genotype [genotype...]]
 
 DESCRIPTION
+     The arg utility is used to manipulate the genebank  archives
+     that  are used by tierra(1).  It is used to assemble or dis-
+     sasemble tierra code, list the genomes contained in a  file,
+     and also to convert between the old and new file formats.
 
-The arg utility is used to manipulate the genebank archives
+     The arg commands are:
+          c - create archive and add genomes
+          r – replace in archive (or add to end) genomes
+          x - extract all or specified genomes
+          t - list archive contents
+     The modifiers are:
+          a – generate thread analysis reports
+          d – use detailed thread analysis report format
+              (default is summary)
+          l – include split tissue analysis data
+          p - execution pattern (must be used with x)
+          s - symmetric cluster analysis (must be used with x, a, and d
+          u - cluster analysis format (must be used with x, a, and d)
 
-that are used by tierra(1). It is used to assemble or dis-
-
-sasemble tierra code, list the genomes contained in a file,
-
-and also to convert between the old and new file formats.
-
-The arg commands are:
-
-c - create archive and add genomes
-
-r – replace in archive (or add to end) genomes
-
-x - extract all or specified genomes
-
-t - list archive contents
-
-The modifiers are:
-
-a – generate thread analysis reports
-
-d – use detailed thread analysis report format
-
-(default is summary)
-
-l – include split tissue analysis data
-
-p - execution pattern (must be used with x)
-
-s - symmetric cluster analysis (must be used with x, a, and d
-
-u - cluster analysis format (must be used with x, a, and d)
 
 FILES
-
-GenebankPath/nnnn.gen permanently saved genomes
-
-GenebankPath/nnnn.tmp genomes from periodic saves
-
-GenebankPath/nnnn.smp extracted samples
+     GenebankPath/nnnn.gen permanently saved genomes
+     GenebankPath/nnnn.tmp genomes from periodic saves
+     GenebankPath/nnnn.smp extracted samples
+--------------------------------------------------
 
 The arg utility requires that the file “opcode.map” be in the current working directory.
 
@@ -1490,41 +1479,25 @@ RateMut = 15211 tells us that the actual average background (cosmic ray) mutatio
 When Tierra is running in the foreground it is possible to interrupt it on either DOS or UNIX, usually by typing Ctrl C (^C). When you do this you will get a brief message listing your options, which looks something like this:
 
 ^C
-
-==========================================================
-
-TIERRA: Main Menu
-
-VER=4.20 PLOIDY=1 MICRO
-
----------------------------------------------------------
-
-InstExe.m = 4 InstExec.i = 397467 NumCells = 370
-
-NumGenotypes = 138 NumSizes = 20
-
----------------------------------------------------------
-
-Key Function
-
-i Information on simulation
-
-v Change or examine a soup_in variable
-
-m Misc. commands
-
-S Execute a system Shell
-
-s Save the soup
-
-q Save the soup & quit
-
-Q Quit/Abort simulation
-
-c To Continue simulation
-
----------------------------------------------------------
-
+--------------------------------------------------
+ ==========================================================
+ TIERRA: Main Menu
+ VER=4.20 PLOIDY=1 MICRO
+ ---------------------------------------------------------
+ InstExe.m = 4 InstExec.i = 397467 NumCells = 370
+ NumGenotypes = 138 NumSizes = 20
+ ---------------------------------------------------------
+ Key Function
+ i Information on simulation
+ v Change or examine a soup_in variable
+ m Misc. commands
+ S Execute a system Shell
+ s Save the soup
+ q Save the soup & quit
+ Q Quit/Abort simulation
+ c To Continue simulation
+ ---------------------------------------------------------
+--------------------------------------------------
 i-info v-var s-save S-shell q-save&quit Q-quit m-misc c-continue |->
 
 You must now choose one of the options by typing one of the corresponding letters: ivSsqQc. When you type the letter, the simulator will either prompt you for more input or do the requested operation.
@@ -1696,6 +1669,7 @@ Completion of thread analysis data collection for a given organism is determined
 ThrdanaMaxFec - fecundity required to stop thread analysis data
 
 collection for cell
+--------------------------------------------------
 
 < 0 = any value of fecundity > 1
 
@@ -1706,6 +1680,7 @@ FecundityAvg
 > 0 = stop at this number of
 
 children
+--------------------------------------------------
 
 ThrdAnaStop – condition required to stop thread analysis data
 
@@ -1881,55 +1856,34 @@ BaseThrdAnaDat ftad_base; /* common thread analysis data */
 
 The IdxThreadDat structure contains data common to a given thread. There is one of these for each thread for which thread analysis data is available.
 
+--------------------------------------------------
 typedef struct
-
-\{ I32s xtdt_threadid; /* thread id */
-
-BasThreadDat xtdt_thrdat; /* thread data */
-
+{   I32s         xtdt_threadid; /* thread id */
+    BasThreadDat xtdt_thrdat;   /* thread data */
 } IdxThreadDat;
 
 typedef struct
-
-\{ I32s tdt_dght1bytcpd; /* number of bytes copied to 1st daughter */
-
-I32s tdt_dght1instex; /* number of instr exec for 1st daughter */
-
-I32s tdt_dght2bytcpd; /* number of bytes copied to 2nd daughter */
-
-I32s tdt_dght2instex; /* number of instr exec for 2nd daughter */
-
-I32s tdt_instex; /* number of instr exec */
-
-I32s tdt_fstinstex; /* first instruction executed */
-
-I32s tdt_lstinstex; /* last instruction executed */
-
-I32s tdt_locrepl; /* number of local replications */
-
-I32s tdt_nlocrepl; /* number of nonlocal replications */
-
-I32s tdt_parent; /* parent thread id */
-
-I32u tdt_bits; /* thread "GList" type bits - see discussion
-
-of WatchExe, WatchMov and WatchTem under
-
-soup_in parameters */
-
-I32s tdt_cpu; /* cpu for this thread */
-
-I32s tdt_termcause; /* termination cause for this thread
-
-= instruction opcode if caused by this
-
-thread or -1 otherwise */
-
-I32s tdt_fstInstP; /* InstP at thread start */
-
-I32s tdt_lstInstP; /* InstP of last instr exec */
-
+{   I32s tdt_dght1bytcpd;  /* number of bytes copied to 1st daughter */
+    I32s tdt_dght1instex;  /* number of instr exec for 1st daughter */
+    I32s tdt_dght2bytcpd;  /* number of bytes copied to 2nd daughter */
+    I32s tdt_dght2instex;  /* number of instr exec for 2nd daughter */
+    I32s tdt_instex;       /* number of instr exec */
+    I32s tdt_fstinstex;    /* first instruction executed */
+    I32s tdt_lstinstex;    /* last instruction executed */
+    I32s tdt_locrepl;      /* number of local replications */
+    I32s tdt_nlocrepl;     /* number of nonlocal replications */
+    I32s tdt_parent;       /* parent thread id */
+    I32u tdt_bits;         /* thread "GList" type bits - see discussion 
+                              of WatchExe, WatchMov and WatchTem under 
+                              soup_in parameters */
+    I32s tdt_cpu;          /* cpu for this thread */
+    I32s tdt_termcause;    /* termination cause for this thread
+                              = instruction opcode if caused by this 
+                              thread or -1 otherwise */
+    I32s tdt_fstInstP;     /* InstP at thread start */
+    I32s tdt_lstInstP;     /* InstP of last instr exec */
 } BasThreadDat;
+--------------------------------------------------
 
 *6.7.2.4) The ThrdAnaEvent Structure*
 
@@ -3340,15 +3294,15 @@ The idea was to add more information to the data sent back in a tping reply. Bec
 
 The following items were added to the previous ones, which were Speed, SoupSize and NumCells:
 
-+ the operating system under which Tierra is running,
+* the operating system under which Tierra is running,
 
-+ the total number of instructions executed by Tierra since startup,
+* the total number of instructions executed by Tierra since startup,
 
-+ the total number of instructions executed with Tierra connected to the network,
+* the total number of instructions executed with Tierra connected to the network,
 
-+ the transit time between local and remote nodes,
+* the transit time between local and remote nodes,
 
-+ the local time.
+* the local time.
 
 *b) Caching tping data*
 
@@ -4054,8 +4008,9 @@ The list of possible operation names is as follows :
 * Genome - Genome information.
 * genome_save - Genome save.
 * migration_tracking - Migration Tracking On/Off.
-1.  9.1.3) Running Life Beagle
-1.  9.1.3.1) How to install Beagle
+
+====  9.1.3) Running Life Beagle
+=====  9.1.3.1) How to install Beagle
 
 Beagle is built using the makefile "Makefile.Bgl" in the Bglclnt directory. There are two optional arguments for this makefile:
 
@@ -4394,31 +4349,22 @@ PROBE | (1-9) = edit param, 0 = init params, G=go <ESC> = quit ->
 
 Syntax:
 
+--------------------------------------------------
 ./genalign <unknown genebank archive>
-
-[-ul <unknown genome label ( do all) ]
-
-[-kg <known genebank archive (0960.gen)>]
-
-[-kl <known genome label ( use 1st) ]
-
-[-tf <threshold factor ( 0.500)>]
-
-[-maw <match weight ( 1.000)>]
-
-[-miw <mismatch weight ( -1.000)>]
-
-[-go <gap open ( -1.000)>]
-
-[-ge <gap ext ( -0.200)>]
-
-[-pa ( no)>]
-
-[-ug ( no)>]
+         [-ul  <unknown genome label   (  do all) ]
+         [-kg  <known genebank archive (0960.gen)>]
+         [-kl  <known genome label     ( use 1st) ]
+         [-tf  <threshold factor       (   0.500)>]
+         [-maw <match weight           (   1.000)>]
+         [-miw <mismatch weight        (  -1.000)>]
+         [-go  <gap open               (  -1.000)>]
+         [-ge  <gap ext                (  -0.200)>]
+         [-pa                          (      no)>]
+         [-ug                          (      no)>]
 
 -pa = print alignment
-
 -ug = use Glist gbits if no thread analysis data is available
+--------------------------------------------------
 
 Each "creature" consists of a sequence of instructions which may be divided into subsequences or "genes", each of which has a specific function. The genalign program compares a sample for which the functions are well understood (a "known" sample) with one for which the functions are not (an "unknown" sample). It selects each gene of the "known" sample, one at a time, and compares it with the entire sequence of instructions in the unknown sample. The program attempts to find similar but not necessarily identical subsequences there. It uses a Smith-Waterman algorithm to evaluate the degree of similarity between the known "gene" and any subsequences it finds in the "unknown" sample.
 
@@ -4524,93 +4470,52 @@ After all existing counterparts for all the "genes" in the "known" sample have b
 
 A portion of a gene alignment report :
 
-repL 52 90 0 0.62 ; reproductive loop
-
--------------------------------------
-
-52:nop1 0:nop1
-
-53:nop1 1:nop1
-
-54:nop1 2:nop1
-
-55:nop0 3:nop0
-
-56:nop1 4:nop1
-
-57:zero 5:zero
-
-58:not0 6:not0
-
-59:shl 7:shl
-
-60:not0 8:not0
-
-61:pushC 9:pushC
-
-62:popD 10:popD
-
-63:popC 11:popC
-
-64:pushC 12:pushC
-
-65:mul 13:mul
-
-66:pushC 14:pushC
-
-67:zero 15:zero
-
-68:not0 16:not0
-
-69:ttime * 17:shl
-
-70:pushE * 18:pushC
-
-71:popD 19:popD
-
-72:popC 20:popC
-
-73:mal 21:mal
-
-74:popC 22:popC
-
-75:split * 23:pushC
-
-76:call 24:call
-
-77:nop0 25:nop0
-
-78:nop0 26:nop0
-
-79:adrf * 27:nop0
-
-80:nop1 28:nop1
-
-:- 29:nop1
-
-81:pushF 30:pushF
-
-82:popA 31:popA
-
-83:pushE 32:pushE
-
-84:popC 33:popC
-
-85:movdi4 34:movdi4
-
-86:divide 35:divide
-
-87:surf * 36:jmpb
-
-88:nop0 37:nop0
-
-:- 38:nop0
-
-:- 39:nop0
-
-89:nop1 40:nop1
-
-90:nop0 41:nop0
+--------------------------------------------------
+ repL                52     90 0   0.62 ; reproductive loop
+ -------------------------------------
+     52:nop1              0:nop1      
+     53:nop1              1:nop1      
+     54:nop1              2:nop1      
+     55:nop0              3:nop0      
+     56:nop1              4:nop1      
+     57:zero              5:zero      
+     58:not0              6:not0      
+     59:shl               7:shl       
+     60:not0              8:not0      
+     61:pushC             9:pushC     
+     62:popD             10:popD      
+     63:popC             11:popC      
+     64:pushC            12:pushC     
+     65:mul              13:mul       
+     66:pushC            14:pushC     
+     67:zero             15:zero      
+     68:not0             16:not0      
+     69:ttime      *     17:shl       
+     70:pushE      *     18:pushC     
+     71:popD             19:popD      
+     72:popC             20:popC      
+     73:mal              21:mal       
+     74:popC             22:popC      
+     75:split      *     23:pushC     
+     76:call             24:call      
+     77:nop0             25:nop0      
+     78:nop0             26:nop0      
+     79:adrf       *     27:nop0      
+     80:nop1             28:nop1      
+       :-                29:nop1      
+     81:pushF            30:pushF     
+     82:popA             31:popA      
+     83:pushE            32:pushE     
+     84:popC             33:popC      
+     85:movdi4           34:movdi4    
+     86:divide           35:divide    
+     87:surf       *     36:jmpb      
+     88:nop0             37:nop0      
+       :-                38:nop0      
+       :-                39:nop0      
+     89:nop1             40:nop1      
+     90:nop0             41:nop0
+--------------------------------------------------
 
 Explanation of the Gene Alignment Report
 
@@ -4636,65 +4541,62 @@ The genalign output file (".gdf" file) will be placed in the same directory as t
 
 Syntax:
 
-./threadtree <genebank archive>
-
-[-gl <genome label ( do all)>]
-
-[-gt ( no)>]
-
-[-ww ( screen)>]
-
-[-wh ( screen)>]
-
-[-fd ( no)>]
-
-[-wc ( no)>]
-
-[-ns ( no)>]
-
-[-if <image format ( gif)>]
-
--gt = gene transition thread analysis data available
-
--ww = window width
-
--wh = window height
-
--fd = stop at first divide
-
--wc = pause for manual window close
-
--ns = skip graphics save
+--------------------------------------------------
+ ./threadtree <genebank archive>
+          [-gl <genome label     (  do all)>]
+          [-gt                   (      no)>]
+          [-ww                   (  screen)>]
+          [-wh                   (  screen)>]
+          [-fd                   (      no)>]
+          [-wc                   (      no)>]
+          [-ns                   (      no)>]
+          [-if <image format     (     gif)>]
+ 
+ -gt = gene transition thread analysis data available
+ -ww = window width
+ -wh = window height
+ -fd = stop at first divide
+ -wc = pause for manual window close
+ -ns = skip graphics save
+--------------------------------------------------
 
 The threadtree utility provides a graphic summary of the thread activity for a creature. The vertical axis denotes a virtual "time" in parallel Tierran instructions. Along the horizontal axis there is drawn a vertical line for each thread. Each "thread" line is drawn at every point along it in the color that corresponds the the "gene" executing at the corresponding time in parallel instructions. The "gene" color key is given on the left of the diagram.
 
 An Explanation of the Options :
 
+--------------------------------------------------
 [-gl <genome label ( do all)>]
+--------------------------------------------------
 
 All of the genotypes present in the gene bank archive file can be processed,
 
 or any specified genotype that is present.
 
+--------------------------------------------------
 [-gt ( no)>]
+--------------------------------------------------
 
 Gene transition thread analysis data will generally not be available until thread analysis data has been gathered for a sample in the presence of a gene definition table for that sample. A thread tree diagram can be generated without gene transition data, but will generally be more accurate if this data is available.
 
+--------------------------------------------------
 [-fd ( no)>]
+--------------------------------------------------
 
 This option will restrict generation of the thread tree so that it covers only the time up to the first division, even if thread analysis data was gathered for the sample after that time.
 
+--------------------------------------------------
 [-if <image format ( gif)>]
+--------------------------------------------------
 
 The image is copied from the displayed window and may be saved in many different formats. It is only necessary to specify the file extention for the format to be saved in. The "import" graphics utility is used to grab the window and save the image to a file in the specified format, and must be available on the system for file saving to work.
 
 A few examples :
 
+--------------------------------------------------
 gif = GIF file
-
 jpg = jpeg format file
-
 png = png format
+--------------------------------------------------
 
 1.  [[Dist]]10) Listing of Distribution Files
 
@@ -5702,10 +5604,8 @@ This parameter gives the number of divide attempts which must be made after the 
 SouUpdTrk
 
 This parameter controls whether or not updates to soup memory are recorded as part of the thread analysis data. The record of these “soup memory” updates is used for the “Soup Memory Update Event Report”. This facility should generally be used in a small test area rather than a “live” net, as it usually gathers very large amounts of data.
-
-= 0 do not record soup memory update events in thread analysis data
-
-= 1 record soup memory update events
+ = 0 do not record soup memory update events in thread analysis data
+ = 1 record soup memory update events
 
 SpeedUpdate
 
@@ -5765,6 +5665,7 @@ If this value is non-zero and either the keyboard or the mouse is used, Tierra w
 * _12.4) Details of Set 0_
 * _12.5) New Features in Sets 1 through 3_
 * _12.6) Set 8_
+
 1.  [[Cpu]]12.0) The CPU
 
 Many aspects of the instruction sets can be best understood if we also understand the structure of the CPU. Therefore we will first review all the details of the current CPU structure.
@@ -6406,263 +6307,137 @@ Each time an instruction is fetched by the FetchDecode() function, a pointer in 
 
 The idt array of InstDef structures defines the set of instructions available for inclusion in the instruction set at run-time. The sub-set of these actually used is determined by the contents of the opcode.map file. The current contents of the idt array is listed below:
 
-InstDef idt[] = \{
-
-\{0, "nop0", nop, pnop, "", 0}, /* no decode args */
-
-\{0, "nop1", nop, pnop, "", 0}, /* no decode args */
-
-\{0, "add", add, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "add2", add, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "adrb", adr, decadr, "", 0}, /* "rr " */
-
-\{0, "adrf", adr, decadr, "", 0}, /* "rr " */
-
-\{0, "adro", adr, decadr, "", 0}, /* "rr " */
-
-\{0, "and", and, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "and2", and, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "call", tcall, ptcall, "", 0}, /* no decode args */
-
-\{0, "clrf", clrf, pnop, "", 0}, /* no decode args */
-
-\{0, "clrfi", clrfi, pnop, "", 0}, /* no decode args */
-
-\{0, "clrrf", clrrf, pnop, "", 0}, /* no decode args */
-
-\{0, "csync", csync, pnop, "", 0}, /* no decode args */
-
-\{0, "dec", add, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "decC", add, dec1d1s, "cc", 0}, /* "cc" */
-
-\{0, "div", idiv, dec1d2s, "", 0}, /* "r" */
-
-\{0, "div2", idiv, dec1d2s, "", 0}, /* "r" */
-
-\{0, "divide", divide, dec2s, "", 0}, /* "rr" */
-
-\{0, "enter", enter, pnop, "", 0}, /* no decode args */
-
-\{0, "exch", exch, dec2s, "", 0}, /* "rr" */
-
-\{0, "getregs", getregs, dec1s, "t", 0}, /* "#" */
-
-\{0, "ifE", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifS", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifZ", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifequal", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifgrtr", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifless", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "ifz", skip, dec2s, "", 0}, /* "rr" */
-
-\{0, "inc", add, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "incA", add, dec1d1s, "aa", 0}, /* "aa" */
-
-\{0, "incB", add, dec1d1s, "bb", 0}, /* "bb" */
-
-\{0, "incC", add, dec1d1s, "cc", 0}, /* "cc" */
-
-\{0, "jmpb", adr, decjmp, "", 0}, /* "r" */
-
-\{0, "jmpf", adr, decjmp, "", 0}, /* "r" */
-
-\{0, "jmpo", adr, decjmp, "", 0}, /* "r" */
-
-\{0, "join", join, pnop, "", 0}, /* no decode args */
-
-\{0, "mal", malchm, dec1d3s, "", 0}, /* "rr r" */
-
-\{0, "movBA", movdd, dec1d1s, "ba", 0}, /* "ba" */
-
-\{0, "movDC", movdd, dec1d1s, "dc", 0}, /* "dc" */
-
-\{0, "movdd", movdd, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "movdi", movdi, pmovdi, "", 0}, /* "rr" */
-
-\{0, "movdi8", movdi, pmovdi, "", 0}, /* "rr" */
-
-\{0, "movdi16", movdi, pmovdi, "", 0}, /* "rr" */
-
-\{0, "movdi32", movdi, pmovdi, "", 0}, /* "rr" */
-
-\{0, "movid", movid, pmovid, "", 0}, /* "rr" */
-
-\{0, "movid8", movid, pmovid, "", 0}, /* "rr" */
-
-\{0, "movid16", movid, pmovid, "", 0}, /* "rr" */
-
-\{0, "movid32", movid, pmovid, "", 0}, /* "rr" */
-
-\{0, "movii", movii, pmovii, "", 0}, /* "rr" */
-
-\{0, "mul", mul, dec1d2s, "", 0}, /* "r" */
-
-\{0, "mul2", mul, dec1d2s, "", 0}, /* "r" */
-
-\{0, "not", not, dec1d, "", 0}, /* "r" */
-
-\{0, "not0", not0, dec1d, "", 0}, /* "r" */
-
-\{0, "offAACD", offset, dec1d3s, "aacd", 0}, /* "aacd" */
-
-\{0, "offBBCD", offset, dec1d3s, "bbcd", 0}, /* "bbcd" */
-
-\{0, "offset", offset, dec1d3s, "", 0}, /* "rrrr" */
-
-\{0, "ior", ior, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "ior2", ior, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "pop", pop, dec1d, "", 0}, /* "r" */
-
-\{0, "popA", pop, dec1d, "a", 0}, /* "a" */
-
-\{0, "popB", pop, dec1d, "b", 0}, /* "b" */
-
-\{0, "popC", pop, dec1d, "c", 0}, /* "c" */
-
-\{0, "popD", pop, dec1d, "d", 0}, /* "d" */
-
-\{0, "popE", pop, dec1d, "e", 0}, /* "e" */
-
-\{0, "popF", pop, dec1d, "f", 0}, /* "f" */
-
-\{0, "push", push, dec1s, "", 0}, /* "r" */
-
-\{0, "pushA", push, dec1s, "a", 0}, /* "a" */
-
-\{0, "pushB", push, dec1s, "b", 0}, /* "b" */
-
-\{0, "pushC", push, dec1s, "c", 0}, /* "c" */
-
-\{0, "pushD", push, dec1s, "d", 0}, /* "d" */
-
-\{0, "pushE", push, dec1s, "e", 0}, /* "e" */
-
-\{0, "pushF", push, dec1s, "f", 0}, /* "f" */
-
-\{0, "rand", movdd, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "ret", pop, dec1d, "", 0}, /* no decode args */
-
-\{0, "rolld", rolld, pnop, "", 0}, /* no decode args */
-
-\{0, "rollu", rollu, pnop, "", 0}, /* no decode args */
-
-\{0, "shl", shl, dec1d, "", 0}, /* "r" */
-
-\{0, "shr", shr, dec1d, "", 0}, /* "r" */
-
-\{0, "split", split, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "sub", add, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "sub2", add, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "subCAB", add, dec1d2s, "cab", 0}, /* "cab" */
-
-\{0, "subAAC", add, dec1d2s, "aac", 0}, /* "aac" */
-
-\{0, "surf", migrate, dec1s, "", 0}, /* "r" */
-
-\{0, "tbf", tbf, pnop, "", 0}, /* no decode args */
-
-\{0, "tdf", tdf, pnop, "", 0}, /* no decode args */
-
-\{0, "ter", ter, pnop, "", 0}, /* no decode args */
-
-\{0, "tsr", tsr, pnop, "", 0}, /* no decode args */
-
-\{0, "tdr", tdr, pnop, "", 0}, /* no decode args */
-
-\{0, "xor", xor, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "xor2", xor, dec1d2s, "", 0}, /* "rrr" */
-
-\{0, "zero", movdd, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "zeroD", movdd, dec1d1s, "dd", 0}, /* "dd" */
-
+--------------------------------------------------
+InstDef idt[] = {
+    {0, "nop0", nop, pnop, "", 0},              /* no decode args */
+    {0, "nop1", nop, pnop, "", 0},              /* no decode args */
+    {0, "add", add, dec1d2s, "", 0},            /* "rrr" */
+    {0, "add2", add, dec1d2s, "", 0},           /* "rrr" */
+    {0, "adrb", adr, decadr, "", 0},            /* "rr  " */
+    {0, "adrf", adr, decadr, "", 0},            /* "rr  " */
+    {0, "adro", adr, decadr, "", 0},            /* "rr  " */
+    {0, "and", and, dec1d2s, "", 0},            /* "rrr" */
+    {0, "and2", and, dec1d2s, "", 0},           /* "rrr" */
+    {0, "call", tcall, ptcall, "", 0},          /* no decode args */
+    {0, "clrf", clrf, pnop, "", 0},             /* no decode args */
+    {0, "clrfi", clrfi, pnop, "", 0},           /* no decode args */
+    {0, "clrrf", clrrf, pnop, "", 0},           /* no decode args */
+    {0, "csync", csync, pnop, "", 0},           /* no decode args */
+    {0, "dec", add, dec1d1s, "", 0},            /* "rr" */
+    {0, "decC", add, dec1d1s, "cc", 0},         /* "cc" */
+    {0, "div", idiv, dec1d2s, "", 0},           /* "r" */
+    {0, "div2", idiv, dec1d2s, "", 0},          /* "r" */
+    {0, "divide", divide, dec2s, "", 0},        /* "rr" */
+    {0, "enter", enter, pnop, "", 0},           /* no decode args */
+    {0, "exch", exch, dec2s, "", 0},            /* "rr" */
+    {0, "getregs", getregs, dec1s, "t", 0},     /* "#" */
+    {0, "ifE", skip, dec2s, "", 0},             /* "rr" */
+    {0, "ifS", skip, dec2s, "", 0},             /* "rr" */
+    {0, "ifZ", skip, dec2s, "", 0},             /* "rr" */
+    {0, "ifequal", skip, dec2s, "", 0},         /* "rr" */
+    {0, "ifgrtr", skip, dec2s, "", 0},          /* "rr" */
+    {0, "ifless", skip, dec2s, "", 0},          /* "rr" */
+    {0, "ifz", skip, dec2s, "", 0},             /* "rr" */
+    {0, "inc", add, dec1d1s, "", 0},            /* "rr" */
+    {0, "incA", add, dec1d1s, "aa", 0},         /* "aa" */
+    {0, "incB", add, dec1d1s, "bb", 0},         /* "bb" */
+    {0, "incC", add, dec1d1s, "cc", 0},         /* "cc" */
+    {0, "jmpb", adr, decjmp, "", 0},            /* "r" */
+    {0, "jmpf", adr, decjmp, "", 0},            /* "r" */
+    {0, "jmpo", adr, decjmp, "", 0},            /* "r" */
+    {0, "join", join, pnop, "", 0},             /* no decode args */
+    {0, "mal", malchm, dec1d3s, "", 0},         /* "rr r" */
+    {0, "movBA", movdd, dec1d1s, "ba", 0},      /* "ba" */
+    {0, "movDC", movdd, dec1d1s, "dc", 0},      /* "dc" */
+    {0, "movdd", movdd, dec1d1s, "", 0},        /* "rr" */
+    {0, "movdi", movdi, pmovdi, "", 0},         /* "rr" */
+    {0, "movdi8", movdi, pmovdi, "", 0},        /* "rr" */
+    {0, "movdi16", movdi, pmovdi, "", 0},       /* "rr" */
+    {0, "movdi32", movdi, pmovdi, "", 0},       /* "rr" */
+    {0, "movid", movid, pmovid, "", 0},         /* "rr" */
+    {0, "movid8", movid, pmovid, "", 0},        /* "rr" */
+    {0, "movid16", movid, pmovid, "", 0},       /* "rr" */
+    {0, "movid32", movid, pmovid, "", 0},       /* "rr" */
+    {0, "movii", movii, pmovii, "", 0},         /* "rr" */
+    {0, "mul", mul, dec1d2s, "", 0},            /* "r" */
+    {0, "mul2", mul, dec1d2s, "", 0},           /* "r" */
+    {0, "not", not, dec1d, "", 0},              /* "r" */
+    {0, "not0", not0, dec1d, "", 0},            /* "r" */
+    {0, "offAACD", offset, dec1d3s, "aacd", 0}, /* "aacd" */
+    {0, "offBBCD", offset, dec1d3s, "bbcd", 0}, /* "bbcd" */
+    {0, "offset", offset, dec1d3s, "", 0},      /* "rrrr" */
+    {0, "ior", ior, dec1d2s, "", 0},            /* "rrr" */
+    {0, "ior2", ior, dec1d2s, "", 0},           /* "rrr" */
+    {0, "pop", pop, dec1d, "", 0},              /* "r" */
+    {0, "popA", pop, dec1d, "a", 0},            /* "a" */
+    {0, "popB", pop, dec1d, "b", 0},            /* "b" */
+    {0, "popC", pop, dec1d, "c", 0},            /* "c" */
+    {0, "popD", pop, dec1d, "d", 0},            /* "d" */
+    {0, "popE", pop, dec1d, "e", 0},            /* "e" */
+    {0, "popF", pop, dec1d, "f", 0},            /* "f" */
+    {0, "push", push, dec1s, "", 0},            /* "r" */
+    {0, "pushA", push, dec1s, "a", 0},          /* "a" */
+    {0, "pushB", push, dec1s, "b", 0},          /* "b" */
+    {0, "pushC", push, dec1s, "c", 0},          /* "c" */
+    {0, "pushD", push, dec1s, "d", 0},          /* "d" */
+    {0, "pushE", push, dec1s, "e", 0},          /* "e" */
+    {0, "pushF", push, dec1s, "f", 0},          /* "f" */
+    {0, "rand", movdd, dec1d1s, "", 0},         /* "rr" */
+    {0, "ret", pop, dec1d, "", 0},              /* no decode args */
+    {0, "rolld", rolld, pnop, "", 0},           /* no decode args */
+    {0, "rollu", rollu, pnop, "", 0},           /* no decode args */
+    {0, "shl", shl, dec1d, "", 0},              /* "r" */
+    {0, "shr", shr, dec1d, "", 0},              /* "r" */
+    {0, "split", split, dec1d1s, "", 0},        /* "rr" */
+    {0, "sub", add, dec1d2s, "", 0},            /* "rrr" */
+    {0, "sub2", add, dec1d2s, "", 0},           /* "rrr" */
+    {0, "subCAB", add, dec1d2s, "cab", 0},      /* "cab" */
+    {0, "subAAC", add, dec1d2s, "aac", 0},      /* "aac" */
+    {0, "surf", migrate, dec1s, "", 0},         /* "r" */
+    {0, "tbf", tbf, pnop, "", 0},               /* no decode args */
+    {0, "tdf", tdf, pnop, "", 0},               /* no decode args */
+    {0, "ter", ter, pnop, "", 0},               /* no decode args */
+    {0, "tsr", tsr, pnop, "", 0},               /* no decode args */
+    {0, "tdr", tdr, pnop, "", 0},               /* no decode args */
+    {0, "xor", xor, dec1d2s, "", 0},            /* "rrr" */
+    {0, "xor2", xor, dec1d2s, "", 0},           /* "rrr" */
+    {0, "zero", movdd, dec1d1s, "", 0},         /* "rr" */
+    {0, "zeroD", movdd, dec1d1s, "dd", 0},      /* "dd" */
 #ifdef IO
-
-\{0, "get", get, dec1d1s, "", 0}, /* "r" */
-
-\{0, "put", put, dec1d1s, "", 0}, /* "rr" */
-
-\{0, "puticc", puticc, pputicc, "", 0}, /* "rr" */
-
+    {0, "get", get, dec1d1s, "", 0},            /* "r" */
+    {0, "put", put, dec1d1s, "", 0},            /* "rr" */
+    {0, "puticc", puticc, pputicc, "", 0},      /* "rr" */
 #endif /* IO */
-
 #if PLOIDY > 1
-
-\{0, "trso", trso, pnop, "", 0}, /* no decode args */
-
-\{0, "trde", trde, pnop, "", 0}, /* no decode args */
-
-\{0, "trex", trex, pnop, "", 0}, /* no decode args */
-
+    {0, "trso", trso, pnop, "", 0},             /* no decode args */
+    {0, "trde", trde, pnop, "", 0},             /* no decode args */
+    {0, "trex", trex, pnop, "", 0},             /* no decode args */
 #else /* PLOIDY > 1 */
-
-\{0, "trso", NULL, NULL, "", 0},
-
-\{0, "trde", NULL, NULL, "", 0},
-
-\{0, "trex", NULL, NULL, "", 0},
-
+    {0, "trso", NULL, NULL, "", 0},
+    {0, "trde", NULL, NULL, "", 0},
+    {0, "trex", NULL, NULL, "", 0},
 #endif /* PLOIDY > 1 */
-
 #ifdef SHADOW
-
-\{0, "A", regorder, dec1s, "a", 0}, /* "a" */
-
-\{0, "B", regorder, dec1s, "b", 0}, /* "b" */
-
-\{0, "C", regorder, dec1s, "c", 0}, /* "c" */
-
-\{0, "D", regorder, dec1s, "d", 0}, /* "d" */
-
+    {0, "A", regorder, dec1s, "a", 0},          /* "a" */
+    {0, "B", regorder, dec1s, "b", 0},          /* "b" */
+    {0, "C", regorder, dec1s, "c", 0},          /* "c" */
+    {0, "D", regorder, dec1s, "d", 0},          /* "d" */
 #ELse /* SHADOW */
-
-\{0, "A", NULL, NULL, "", 0},
-
-\{0, "B", NULL, NULL, "", 0},
-
-\{0, "C", NULL, NULL, "", 0},
-
-\{0, "D", NULL, NULL, "", 0},
-
+    {0, "A", NULL, NULL, "", 0},
+    {0, "B", NULL, NULL, "", 0},
+    {0, "C", NULL, NULL, "", 0},
+    {0, "D", NULL, NULL, "", 0},
 #endif /* SHADOW */
-
 #ifdef NET
-
-\{0, "tpings", tpingsnd, dec1s, "", 0}, /* "r" */
-
-\{0, "tpingr", tpingrec, dec1d, "", 0}, /* "r" */
-
-\{0, "getip", getip, dec1d, "", 0}, /* "r" */
-
-NEEDED: \{0, "getipp", getipp, dec1d, "", 0}, /* "r" */
-
+    {0, "tpings", tpingsnd, dec1s, "", 0},    /* "r" */
+    {0, "tpingr", tpingrec, dec1d, "", 0},    /* "r" */
+    {0, "getip",  getip,    dec1d, "", 0},    /* "r" */
+NEEDED: {0, "getipp",  getipp,    dec1d, "", 0},    /* "r" */
 NEEDED: network intercellular communication mechanisms
-
 #endif /* NET */
-
-\{0, "END", NULL, NULL, "", 0} /* this line must be last! */
-
+    {0, "END", NULL, NULL, "", 0}             /* this line must be last! */
 };
+--------------------------------------------------
 
 I will now discuss the function and use of each of these instructions in turn. There are some operations that are performed in many of the instructions. Rather than repeating the complete description of these with each instruction, I will describe them first, and then only refer to them by name in the relevant instructions.
 
@@ -8098,77 +7873,45 @@ implement instruction set #3. These associations are determined by
 
 the opcode3.map file.
 
+--------------------------------------------------
 Segment registers: c
-
 Destination registers: a
-
 Source registers: b
-
-\{0, "nop0", nop, pnop, "", ""}, /* no decode args */
-
-\{0, "nop1", nop, pnop, "", ""}, /* no decode args */
-
-\{0, "movdi", movdi, pmovdi, "abc", "FTG"},/* "rr" */
-
-\{0, "movid", movid, pmovid, "bac", "F"}, /* "rr" */
-
-\{0, "movii", movii, pmovii, "abc", "FTG"},/* "rr" */
-
-\{0, "pushA", push, dec1s, "a", ""}, /* "a" */
-
-\{0, "pushB", push, dec1s, "b", ""}, /* "b" */
-
-\{0, "pushC", push, dec1s, "c", ""}, /* "c" */
-
-\{0, "pushD", push, dec1s, "d", ""}, /* "d" */
-
-\{0, "popA", pop, dec1d, "a", ""}, /* "a" */
-
-\{0, "popB", pop, dec1d, "b", ""}, /* "b" */
-
-\{0, "popC", pop, dec1d, "c", ""}, /* "c" */
-
-\{0, "popD", pop, dec1d, "d", ""}, /* "d" */
-
-\{0, "puticc", puticc, pputicc, "dc", ""}, /* "rr" */
-
-\{0, "get", get, dec1d1s, "d", ""}, /* "r" */
-
-\{0, "inc", math, dec1d1s, "cc", ""}, /* "rr" */
-
-\{0, "dec", math, dec1d1s, "cc", ""}, /* "rr" */
-
-\{0, "add", math, dec1d2s, "ccd", ""}, /* "rrr" */
-
-\{0, "sub", math, dec1d2s, "ccd", ""}, /* "rrr" */
-
-\{0, "zero", movdd, dec1d1s, "cc", ""}, /* "rr" */
-
-\{0, "shl", shl, dec1d, "c", ""}, /* "r" */
-
-\{0, "not0", not0, dec1d, "c", ""}, /* "r" */
-
-\{0, "ifz", skip, dec2s, "cc", ""}, /* "r#" */
-
-\{0, "ifZ", skip, dec2s, "ab", ""}, /* "r#" */
-
-\{0, "jmpo", adr, decjmp, "b", ""}, /* "r" */
-
-\{0, "jmpb", adr, decjmp, "b", ""}, /* "r" */
-
-\{0, "call", tcall, ptcall, "", ""}, /* no decode args */
-
-\{0, "adro", adr, decadr, "adcc", ""}, /* "rr " */
-
-\{0, "adrb", adr, decadr, "adcc", ""}, /* "rr " */
-
-\{0, "adrf", adr, decadr, "adcc", ""}, /* "rr " */
-
-\{0, "mal", malchm, dec1d3s, "ac a", ""}, /* "rr r" */
-
-\{0, "divide", divide, dec2s, "cd", ""}, /* "rr" */
+    {0, "nop0", nop, pnop, "", ""},           /* no decode args */
+    {0, "nop1", nop, pnop, "", ""},           /* no decode args */
+    {0, "movdi", movdi, pmovdi, "abc", "FTG"},/* "rr" */
+    {0, "movid", movid, pmovid, "bac", "F"},  /* "rr" */
+    {0, "movii", movii, pmovii, "abc", "FTG"},/* "rr" */
+    {0, "pushA", push, dec1s, "a", ""},       /* "a" */
+    {0, "pushB", push, dec1s, "b", ""},       /* "b" */
+    {0, "pushC", push, dec1s, "c", ""},       /* "c" */
+    {0, "pushD", push, dec1s, "d", ""},       /* "d" */
+    {0, "popA", pop, dec1d, "a", ""},         /* "a" */
+    {0, "popB", pop, dec1d, "b", ""},         /* "b" */
+    {0, "popC", pop, dec1d, "c", ""},         /* "c" */
+    {0, "popD", pop, dec1d, "d", ""},         /* "d" */
+    {0, "puticc", puticc, pputicc, "dc", ""}, /* "rr" */
+    {0, "get", get, dec1d1s, "d", ""},        /* "r" */
+    {0, "inc", math, dec1d1s, "cc", ""},      /* "rr" */
+    {0, "dec", math, dec1d1s, "cc", ""},      /* "rr" */
+    {0, "add", math, dec1d2s, "ccd", ""},     /* "rrr" */
+    {0, "sub", math, dec1d2s, "ccd", ""},     /* "rrr" */
+    {0, "zero", movdd, dec1d1s, "cc", ""},    /* "rr" */
+    {0, "shl", shl, dec1d, "c", ""},          /* "r" */
+    {0, "not0", not0, dec1d, "c", ""},        /* "r" */
+    {0, "ifz", skip, dec2s, "cc", ""},        /* "r#" */
+    {0, "ifZ", skip, dec2s, "ab", ""},        /* "r#" */
+    {0, "jmpo", adr, decjmp, "b", ""},        /* "r" */
+    {0, "jmpb", adr, decjmp, "b", ""},        /* "r" */
+    {0, "call", tcall, ptcall, "", ""},       /* no decode args */
+    {0, "adro", adr, decadr, "adcc", ""},     /* "rr  " */
+    {0, "adrb", adr, decadr, "adcc", ""},     /* "rr  " */
+    {0, "adrf", adr, decadr, "adcc", ""},     /* "rr  " */
+    {0, "mal", malchm, dec1d3s, "ac a", ""},  /* "rr r" */
+    {0, "divide", divide, dec2s, "cd", ""},   /* "rr" */
 
 ***********************************************************************
+--------------------------------------------------
 
 1.  [[here2]][[Details]]12.4) Details of Set 0
 
